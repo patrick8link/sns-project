@@ -20,19 +20,15 @@ def insertAccountIntoTable(username, name, ig_id, profile_picture_url, follows_c
                 charset="utf8mb4"
             )
         cursor = connection.cursor()
-        mySql_insert_query = """INSERT INTO 
-                                business_discovery 
+        mySql_insert_query = """INSERT INTO business_discovery 
                                     (username, name, ig_id, profile_picture_url, follows_count, followers_count, media_count, id) 
                                 VALUES 
                                     (%s,%s,%s,%s,%s,%s,%s,%s)
-                                ON DUPLICATE KEY UPDATE
-                                    profile_picture_url = %s;
-                                    follows_count = %s;
-                                    followers_count = %s;
-                                    media_count = %s;
+                                 ON DUPLICATE KEY UPDATE
+                                    profile_picture_url = %s, follows_count = %s, followers_count = %s, media_count = %s
                                 """
         mySql_data = (username, name, ig_id, profile_picture_url, follows_count, followers_count, media_count, id, profile_picture_url, follows_count, followers_count, media_count)
-        cursor.execute(mySql_insert_query,mySql_data , multi=True)
+        cursor.execute(mySql_insert_query,mySql_data)
         connection.commit()
         print("Record inserted successfully into business_discovery table")
     except mysql.connector.Error as error:
@@ -102,7 +98,7 @@ def insertHistoryintoTable(date, followers_count, follows_count, media_count, us
             connection.close()
             print("MySQL connection is closed")   
 
-with open('awesomehaeun-data.json') as f:
+with open('19.json') as f:
     data = json.load(f)
 
 # =============================================================================
@@ -136,12 +132,12 @@ for mediaData in media:
 
 history = data["business_discovery"]["followers_history"]
 for historyData in history:
-    hist_followers_count = history["followers_count"]
-    hist_date = history["date"]
-    hist_follows_count = history["follows_count"]
-    hist_media_count = history["media_count"]
+    hist_followers_count = historyData["followers_count"]
+    hist_date = historyData["date"]
+    hist_follows_count = historyData["follows_count"]
+    hist_media_count = historyData["media_count"]
     hist_username = username
-    insertHistoryintoTable(date, followers_count, follows_count, media_count, username)
+    insertHistoryintoTable(hist_date, hist_followers_count, hist_follows_count, hist_media_count, username)
 
 
 
