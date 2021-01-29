@@ -1,4 +1,5 @@
 <html>
+{% block head %}
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -10,31 +11,60 @@
     div {text-align: center;}
     .border1 {
       border-style:solid;
-      border-color:#287EC7;
+      border-color:#FFFFFF;
     }
     .column {
       float: left;
       width: 33.33%;
     }
+    .navbar-custom {
+      background-color: #B90238
+    }
 
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    
   </head>
-  <body>
-    <div class="border1">
+
+{% endblock %}
+{% block navbar %}
+<body>
+<nav class="navbar navbar-expand-md navbar-custom navbar-dark">
+  <div class="container-fluid">
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false">
+      <span id="toolbar" class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/search/" style="font-family: 'Hachi Maru Pop', cursive;">
+	{% load static%}
+      <img src="{% static 'images/ipc-partners.png' %}" alt="Logo" style="width:150px;">
+    </a>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/search"><span class="ml-5" style="font-family:'Courier New', cursive; color:#FFFFFF; font-size:150%">HOME</span></a>  </li>
+	<li><a href="#"><span class="ml-5" style="font-family:'Courier New', cursive; color:#FFFFFF; font-size:150%">TEST1</span></a>  </li>
+        <li><a href="#"><span class="ml-5" style="font-family:'Courier New', cursive; color:#FFFFFF; font-size:150%">TEST2</span></a>  </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+    <div class="border1 mt-5">
         <link rel="icon" href="data:,">
         <div class="image"> <img class="circular--square" src="{{ profile_picture_url }}", style="width:200px"> </div>
         <div class="ml-3 w-100">
-            <h4>Username: {{ username }}</h4>
-            <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                <div class="d-flex flex-column"> <span class="articles">Name: </span> <span class="number1">{{ name }}</span> </div>
-                <div class="d-flex flex-column"> <span class="followers">Followers: </span> <span class="number2">{{ followers_count }}</span> </div>
-                <div class="d-flex flex-column"> <span class="followers">Following: </span> <span class="number2">{{ follows_count }}</span> </div>
+            <div style="font-family:'Batang'">
+		<div> <span class="username">Username: </span> <span class="number0">{{ username }}</span></div>
+                <div> <span class="articles">Name: </span> <span class="number1">{{ name }}</span> </div>
+                <div> <span class="followers">Followers: </span> <span class="number2">{{ followers_count }}</span> </div>
+                <div> <span class="following">Following: </span> <span class="number3">{{ follows_count }}</span> </div>
             </div>
-            <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button> </div>
         </div>
     </div>
-    <div class="mediadata"></div>
-    <button onclick="location.href = '/search/';" id="myButton" class="float-left submit-button" >Home</button>
+    <div class="mediadata mt-5"></div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
