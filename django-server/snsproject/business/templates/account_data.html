@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    .circular--square {
+      border-radius: 50%;
+    }
+    h1 {text-align: center;}
+    p {text-align: center;}
+    div {text-align: center;}
+    .border1 {
+      border-style:solid;
+      border-color:#287EC7;
+    }
+    .column {
+      float: left;
+      width: 33.33%;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="border1">
+        <link rel="icon" href="data:,">
+        <div class="image"> <img class="circular--square" src="{{ profile_picture_url }}", style="width:200px"> </div>
+        <div class="ml-3 w-100">
+            <h4>Username: {{ username }}</h4>
+            <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                <div class="d-flex flex-column"> <span class="articles">Name: </span> <span class="number1">{{ name }}</span> </div>
+                <div class="d-flex flex-column"> <span class="followers">Followers: </span> <span class="number2">{{ followers_count }}</span> </div>
+                <div class="d-flex flex-column"> <span class="followers">Following: </span> <span class="number2">{{ follows_count }}</span> </div>
+            </div>
+            <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button> </div>
+        </div>
+    </div>
+    <div class="mediadata"></div>
+    <button onclick="location.href = '/search/';" id="myButton" class="float-left submit-button" >Home</button>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    
+    
+    likeCount = {{ like_count }}
+    media = {{ mediaURL|safe }}
+    perma = {{ permalink|safe }}
+    $(document).ready(function() {
+      var list = "";
+      for (i = 0; i < likeCount.length; i++) {
+        list += "<div class='column'>"
+        list += " <a href="+perma[i]+"><img src='"+media[i]+"' width=200></a>"
+        list += "<p> <span>&#10084</span>" + likeCount[i] + "</p>";
+        list += "</div>"
+      }
+      $(".mediadata").append(list);
+    });
+
+  </script>
+</html>
